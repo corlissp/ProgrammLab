@@ -8,10 +8,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * @author Min Danil 12.10.2023
@@ -28,7 +25,7 @@ public class Service {
         System.out.print(Printer.GREEN + "Введите строку: ");
         String input = scanner.next();
         System.out.print(Printer.GREEN + "Результат: ");
-        printer.print(Printer.GREEN + input + "\n");
+        printer.print(Printer.GREEN + input);
     }
 
     public void readAndLoadToFile() {
@@ -43,7 +40,7 @@ public class Service {
         System.out.print(Printer.GREEN + "Название файла: ");
         String name = scanner.next();
         List<String> file = readFromFile(name);
-        printer.print(file);
+        printer.printListString(file);
     }
 
     public void readAndWriteOnBegin() {
@@ -56,51 +53,52 @@ public class Service {
         loadToFileList(fileName, list);
     }
 
-    public void createArray() {
+    public List<Integer> createArray() {
+        List<Integer> list = new ArrayList<>();
         try {
             System.out.print(Printer.GREEN + "Кол-во элементов в массиве: ");
             int length = scanner.nextInt();
-            List<Integer> list = new ArrayList<>();
             for (int i = 0; i < length; i++)
                 list.add(i);
-            printer.printListInt(list);
         } catch (RuntimeException e) {
             printer.printErrorInput();
         }
+        return list;
     }
 
-    public void readAndOutArray() {
+    public List<Integer> readArray() {
+        List<Integer> list = new ArrayList<>();
         try {
             System.out.print(Printer.GREEN + "Кол-во элементов в массиве: ");
             int length = scanner.nextInt();
-            List<Integer> list = new ArrayList<>();
             int element;
             for (int i = 0; i < length; i++) {
                 System.out.print(Printer.GREEN + "Элемент: ");
                 element = scanner.nextInt();
                 list.add(element);
             }
-            printer.printListInt(list);
         } catch (RuntimeException e) {
             printer.printErrorInput();
         }
+        return list;
     }
 
-    public void createRandomArray() {
+    public List<Integer> createRandomArray() {
+        List<Integer> list = new ArrayList<>();
         try {
             System.out.print(Printer.GREEN + "Кол-во элементов в массиве: ");
             int length = scanner.nextInt();
             Random random = new Random();
-            List<Integer> list = new ArrayList<>();
             for (int i = 0; i < length; i++)
                 list.add(random.nextInt());
-            printer.printListInt(list);
         } catch (RuntimeException e) {
             printer.printErrorInput();
         }
+        return list;
     }
 
-    public void createRandomArrayBetween() {
+    public List<Integer> createRandomArrayBetween() {
+        List<Integer> list = new ArrayList<>();
         try {
             System.out.print(Printer.GREEN + "Кол-во элементов в массиве: ");
             int length = scanner.nextInt();
@@ -108,19 +106,70 @@ public class Service {
             int seed = scanner.nextInt();
             System.out.print(Printer.GREEN + "Конец диапазона: ");
             int bound = scanner.nextInt();
-            System.out.print(Printer.GREEN + "Название файла: ");
-            String fileName = scanner.next();
             Random random = new Random(seed);
-            List<Integer> list = new ArrayList<>();
             for (int i = 0; i < length; i++)
                 list.add(random.nextInt(bound));
-            loadToFile(fileName, list.toString());
-            printer.printListInt(list);
         } catch (RuntimeException e) {
             printer.printErrorInput();
         }
+        return list;
     }
 
+    public void loadListToFile(List<Integer> list) {
+        System.out.print(Printer.GREEN + "Название файла: ");
+        String fileName = scanner.next();
+        loadToFile(fileName, list.toString());
+    }
+
+    public List<Integer> searchMinSum(List<Integer> first, List<Integer> second) {
+        if (calculateSum(first) >= calculateSum(second)) {
+            return first;
+        }
+        return second;
+    }
+
+    private int calculateSum(List<Integer> numbers) {
+        int sum = 0;
+        for (int number : numbers) {
+            sum += number;
+        }
+        return sum;
+    }
+
+    public List<Integer> reverseList(List<Integer> list) {
+        Collections.reverse(list);
+        return list;
+    }
+
+    public List<Integer> sortList(List<Integer> list) {
+        Collections.sort(list);
+        return list;
+    }
+
+    public int maxFromList(List<Integer> list) {
+        return Collections.max(list);
+    }
+
+    public int minFromList(List<Integer> list) {
+        return Collections.min(list);
+    }
+
+    public int findGcd(List<Integer> list) {
+        int gcd = list.get(0);
+        for (int i = 1; i < list.size(); i++) {
+            gcd = findGCD(gcd, list.get(i));
+        }
+        return gcd;
+    }
+
+    private int findGCD(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
 
     private void loadToFileList(String name, List<String> list) {
         try {

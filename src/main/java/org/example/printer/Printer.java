@@ -19,12 +19,16 @@ public abstract class Printer {
         System.out.println(string);
     }
 
-    public void print(List<String> list) {
+    public void print(Integer integer) {
+        System.out.println(integer);
+    }
+
+    public void printListString(List<String> list) {
         list.forEach(System.out::println);
     }
 
     public void printListInt(List<Integer> list) {
-        list.forEach(System.out::println);
+        System.out.println(list);
     }
 
     public void printErrorCommand() {
@@ -33,6 +37,14 @@ public abstract class Printer {
 
     public void printErrorInput() {
         System.out.println(RED + "Ошибка при вводе!");
+    }
+
+    public void printEnter() {
+        System.out.print(GREEN + "Введено: ");
+    }
+
+    public void printResult() {
+        System.out.print(GREEN + "Результат: ");
     }
 
 }

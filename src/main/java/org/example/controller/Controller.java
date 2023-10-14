@@ -1,8 +1,9 @@
 package org.example.controller;
 
-import org.example.service.Service;
 import org.example.printer.PrinterMenu;
+import org.example.service.Service;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -50,7 +51,15 @@ public class Controller {
                             printer.printSecond();
                             secondFlag = scanner.nextInt();
                         }
+                        break;
                     case 3:
+                        printer.printThird();
+                        secondFlag = scanner.nextInt();
+                        while (secondFlag != 0) {
+                            thirdController(secondFlag);
+                            printer.printThird();
+                            secondFlag = scanner.nextInt();
+                        }
                         break;
                 }
                 printer.printMain();
@@ -79,18 +88,101 @@ public class Controller {
     }
 
     private void secondController(int flag) {
+        List<Integer> list;
         switch (flag) {
             case 1:
-                service.createArray();
+                list = service.createArray();
+                printer.printResult();
+                printer.printListInt(list);
                 break;
             case 2:
-                service.readAndOutArray();
+                list = service.readArray();
+                printer.printResult();
+                printer.printListInt(list);
                 break;
             case 3:
-                service.createRandomArray();
+                list = service.createRandomArray();
+                printer.printResult();
+                printer.printListInt(list);
                 break;
             case 4:
-                service.createRandomArrayBetween();
+                list = service.createRandomArrayBetween();
+                service.loadListToFile(list);
+                printer.printResult();
+                printer.printListInt(list);
+                break;
+        }
+    }
+
+    private void thirdController(int flag) {
+        List<Integer> list;
+        switch (flag) {
+            case 1:
+                list = service.createRandomArrayBetween();
+                printer.printEnter();
+                printer.printListInt(list);
+                list = service.reverseList(list);
+                printer.printResult();
+                printer.printListInt(list);
+                break;
+            case 2:
+                printer.printQuestions(1);
+                int input = scanner.nextInt();
+                if (input == 1) {
+                    list = service.createRandomArrayBetween();
+                    printer.printEnter();
+                    printer.printListInt(list);
+                    list = service.sortList(list);
+                    printer.printResult();
+                    printer.printListInt(list);
+                } else if (input == 2) {
+                    list = service.createRandomArrayBetween();
+                    printer.printEnter();
+                    printer.printListInt(list);
+                    list = service.sortList(list);
+                    list = service.reverseList(list);
+                    printer.printResult();
+                    printer.printListInt(list);
+                } else {
+                    printer.printErrorCommand();
+                }
+                break;
+            case 3:
+                printer.printQuestions(2);
+                input = scanner.nextInt();
+                if (input == 1) {
+                    list = service.createRandomArrayBetween();
+                    printer.printEnter();
+                    printer.printListInt(list);
+                    System.out.print("Максимум: ");
+                    printer.print(service.maxFromList(list));
+                } else if (input == 2) {
+                    list = service.createRandomArrayBetween();
+                    printer.printEnter();
+                    printer.printListInt(list);
+                    System.out.print("Минимум: ");
+                    printer.print(service.minFromList(list));
+                } else {
+                    printer.printErrorCommand();
+                }
+                break;
+            case 4:
+                list = service.readArray();
+                printer.printEnter();
+                printer.printListInt(list);
+                int result = service.findGcd(list);
+                printer.printResult();
+                printer.print(result);
+                break;
+            case 5:
+                list = service.readArray();
+                printer.printEnter();
+                printer.printListInt(list);
+                List<Integer> secondList = service.readArray();
+                printer.printEnter();
+                printer.printListInt(secondList);
+                printer.printResult();
+                printer.printListInt(service.searchMinSum(list, secondList));
                 break;
         }
     }
