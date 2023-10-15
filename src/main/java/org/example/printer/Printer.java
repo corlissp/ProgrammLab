@@ -47,4 +47,13 @@ public abstract class Printer {
         System.out.print(GREEN + "Результат: ");
     }
 
+    public void printMatrix(int [][] matrix) {
+        for (int[] ints : matrix) {
+            for (int anInt : ints) {
+                System.out.print(anInt + " ");
+            }
+            System.out.print("\n");
+        }
+    }
+
 }

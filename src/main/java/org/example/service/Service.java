@@ -15,7 +15,10 @@ import java.util.*;
  */
 public class Service {
     private final Printer printer;
-    private final Scanner scanner;
+    protected final Scanner scanner;
+    protected final String separator = File.separator;
+    protected final Path path = Paths.get("src" + separator + "main" + separator + "resources");
+    protected final Path absPath = path.toAbsolutePath();
     public Service(Printer printer) {
         this.printer = printer;
         this.scanner = new Scanner(System.in);
@@ -103,12 +106,12 @@ public class Service {
             System.out.print(Printer.GREEN + "Кол-во элементов в массиве: ");
             int length = scanner.nextInt();
             System.out.print(Printer.GREEN + "Начало диапазона: ");
-            int seed = scanner.nextInt();
+            int min = scanner.nextInt();
             System.out.print(Printer.GREEN + "Конец диапазона: ");
-            int bound = scanner.nextInt();
-            Random random = new Random(seed);
+            int max = scanner.nextInt();
+            Random random = new Random();
             for (int i = 0; i < length; i++)
-                list.add(random.nextInt(bound));
+                list.add(random.nextInt(max - min) + min);
         } catch (RuntimeException e) {
             printer.printErrorInput();
         }
@@ -173,9 +176,6 @@ public class Service {
 
     private void loadToFileList(String name, List<String> list) {
         try {
-            String separator = File.separator;
-            Path path = Paths.get("src" + separator + "main" + separator + "resources");
-            Path absPath = path.toAbsolutePath();
             File file = new File(absPath + separator + name);
             Writer fileWriter = new FileWriter(file);
             for (String line: list)
@@ -189,9 +189,6 @@ public class Service {
 
     private void loadToFile(String name, String string) {
         try {
-            String separator = File.separator;
-            Path path = Paths.get("src" + separator + "main" + separator + "resources");
-            Path absPath = path.toAbsolutePath();
             File file = new File(absPath + separator + name);
             Writer fileWriter = new FileWriter(file);
             fileWriter.write(string);
@@ -203,9 +200,6 @@ public class Service {
     }
 
     private List<String> readFromFile(String name) {
-        String separator = File.separator;
-        Path path = Paths.get("src" + separator + "main" + separator + "resources");
-        Path absPath = path.toAbsolutePath();
         File file = new File(absPath + separator + name);
         List<String> lines = new ArrayList<>();
         try {

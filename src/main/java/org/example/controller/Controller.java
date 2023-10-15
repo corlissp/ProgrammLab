@@ -1,7 +1,8 @@
 package org.example.controller;
 
+import org.example.draw.DrawCircle;
 import org.example.printer.PrinterMenu;
-import org.example.service.Service;
+import org.example.service.MatrixService;
 
 import java.util.List;
 import java.util.Scanner;
@@ -12,12 +13,12 @@ import java.util.Scanner;
 public class Controller {
     private final PrinterMenu printer;
     private final Scanner scanner;
-    private final Service service;
+    private final MatrixService service;
 
     public Controller(PrinterMenu printer, Scanner scanner) {
         this.printer = printer;
         this.scanner = scanner;
-        this.service = new Service(printer);
+        this.service = new MatrixService(printer);
     }
 
     public void mainPage() {
@@ -60,6 +61,30 @@ public class Controller {
                             printer.printThird();
                             secondFlag = scanner.nextInt();
                         }
+                        break;
+                    case 4:
+                        printer.printMatrixBlock();
+                        secondFlag = scanner.nextInt();
+                        while (secondFlag != 0) {
+                            matrixController(secondFlag);
+                            printer.printMatrixBlock();
+                            secondFlag = scanner.nextInt();
+                        }
+                        break;
+                    case 5:
+                        printer.printSortBlock();
+                        secondFlag = scanner.nextInt();
+                        while (secondFlag != 0) {
+                            matrixController(secondFlag);
+                            printer.printSortBlock();
+                            secondFlag = scanner.nextInt();
+                        }
+                        break;
+                    case 6:
+                        new DrawCircle();
+                        break;
+                    case 7:
+                        // Графика
                         break;
                 }
                 printer.printMain();
@@ -183,6 +208,80 @@ public class Controller {
                 printer.printListInt(secondList);
                 printer.printResult();
                 printer.printListInt(service.searchMinSum(list, secondList));
+                break;
+        }
+    }
+
+    private void matrixController(int flag) {
+        int [][] matrix;
+        switch (flag) {
+            case 1:
+                matrix = service.createMatrix();
+                printer.printMatrix(matrix);
+                break;
+            case 2:
+                matrix = service.createMatrix();
+                printer.printMatrix(service.removeColumn(matrix));
+                break;
+            case 3:
+                matrix = service.createMatrix();
+                printer.printMatrix(service.transposeMatrix(matrix));
+                break;
+            case 4:
+                matrix = service.createMatrix();
+                printer.printMatrix(service.removeMainDiagonal(matrix));
+                break;
+            case 5:
+                matrix = service.createMatrix();
+                printer.printMatrix(matrix);
+                int[][] secondMatrix = service.createMatrix();
+                printer.printMatrix(secondMatrix);
+                System.out.print("Иднекс для замены: ");
+                int index = scanner.nextInt();
+                printer.printMatrix(service.replaceColumn(matrix, secondMatrix, index));
+                break;
+            case 6:
+                matrix = service.createMatrix();
+                printer.printMatrix(matrix);
+                System.out.print("Введите значение: ");
+                int searchValue = scanner.nextInt();
+                printer.printMatrix(service.searchElement(matrix, searchValue));
+                break;
+            case 7:
+                matrix = service.createMatrix();
+                printer.printMatrix(matrix);
+                printer.printResult();
+                printer.print(service.calculateDeterminant(matrix));
+                break;
+            case 8:
+                matrix = service.createMatrix();
+                printer.printMatrix(matrix);
+                printer.printMatrix(service.multiMatrix(matrix));
+                break;
+            case 9:
+                matrix = service.swapRowsMatrix();
+                printer.printMatrix(matrix);
+                break;
+        }
+    }
+
+    private void sortController(int flag) {
+        int [][] matrix = service.createMatrix();
+        switch (flag) {
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+            case 4:
+
+                break;
+            case 5:
+
                 break;
         }
     }

@@ -9,6 +9,10 @@ public class PrinterMenu extends Printer {
         System.out.println(PURPLE + "1. Чтение и запись.");
         System.out.println(PURPLE + "2. Создание массива.");
         System.out.println(PURPLE + "3. Работа с массивом.");
+        System.out.println(PURPLE + "4. Работа с матрицей.");
+        System.out.println(PURPLE + "5. Сортировки матриц.");
+        System.out.println(PURPLE + "6. Работа со строками.");
+        System.out.println(PURPLE + "7. Работа с графикой.");
         System.out.println(RED + "0. Завершить работу.");
     }
 
@@ -52,5 +56,29 @@ public class PrinterMenu extends Printer {
                 System.out.println(PURPLE + "1. Вывести максимум.");
                 System.out.println(PURPLE + "2. Вывести минимум.");
         }
+    }
+
+    public void printMatrixBlock() {
+        System.out.println(GREEN + "\nВыберите задание:");
+        System.out.println(PURPLE + "1. Создание матрицы.");
+        System.out.println(PURPLE + "2. Удаление столбца.");
+        System.out.println(PURPLE + "3. Транспонирование матрицы.");
+        System.out.println(PURPLE + "4. Вычеркнуть главную диагональ.");
+        System.out.println(PURPLE + "5. Замена колонки в матрице.");
+        System.out.println(PURPLE + "6. Поиск кратного и замена на 0.");
+        System.out.println(PURPLE + "7. Поиск детерминанта матрицы.");
+        System.out.println(PURPLE + "8. Умножение матриц.");
+        System.out.println(PURPLE + "9. Замена строк матрицы.");
+        System.out.println(RED + "0. Выйти.");
+    }
+
+    public void printSortBlock() {
+        System.out.println(GREEN + "\nВыберите задание:");
+        System.out.println(PURPLE + "1. Сортировка матрицы методом Шелла.");
+        System.out.println(PURPLE + "2. Сортировка матрицы методом пузырька.");
+        System.out.println(PURPLE + "3. Сортировка матрицы методом вставок.");
+        System.out.println(PURPLE + "4. Сортировка матрицы методом выбора.");
+        System.out.println(PURPLE + "5. Сортировка матрицы методом кучи.");
+        System.out.println(RED + "0. Выйти.");
     }
 }
