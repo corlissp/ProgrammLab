@@ -55,6 +55,13 @@ public class PrinterMenu extends Printer {
                 System.out.println(GREEN + "Выберите цель поиска:");
                 System.out.println(PURPLE + "1. Вывести максимум.");
                 System.out.println(PURPLE + "2. Вывести минимум.");
+                break;
+            case 3:
+                System.out.println(GREEN + "Выберите формат:");
+                System.out.println(PURPLE + "1. По левому краю.");
+                System.out.println(PURPLE + "2. По центру.");
+                System.out.println(PURPLE + "3. По правому краю.");
+                break;
         }
     }
 
@@ -79,6 +86,16 @@ public class PrinterMenu extends Printer {
         System.out.println(PURPLE + "3. Сортировка матрицы методом вставок.");
         System.out.println(PURPLE + "4. Сортировка матрицы методом выбора.");
         System.out.println(PURPLE + "5. Сортировка матрицы методом кучи.");
+        System.out.println(RED + "0. Выйти.");
+    }
+
+    public void printFormat() {
+        System.out.println(GREEN + "\nВыберите задание:");
+        System.out.println(PURPLE + "1. Вывести форматированный текст.");
+        System.out.println(PURPLE + "2. Вывести псевдографикой таблицу.");
+        System.out.println(PURPLE + "3. Считать строку из файла. Вычеркнуть из неё символы полученные из клавиатуры.");
+        System.out.println(PURPLE + "4. Выполнить поиск строки в файле в режиме не полного соответствия. Вывести номер последней строки удовлетворяющей условию.");
+        System.out.println(PURPLE + "5. Вывести строку в формате бегущей строки двигающейся в обратном направлении.");
         System.out.println(RED + "0. Выйти.");
     }
 }

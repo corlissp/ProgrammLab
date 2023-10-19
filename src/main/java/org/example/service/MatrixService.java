@@ -230,6 +230,126 @@ public class MatrixService extends Service {
         return matrix;
     }
 
+    private int[][] transArrayToMatrix(int[][] matrix, int[] array) {
+        int k = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                matrix[i][j] = array[k];
+                k++;
+            }
+        }
+        return matrix;
+    }
+
+    private int[] transMatrixToArray(int [][] matrix) {
+        int n = matrix.length * matrix[0].length;
+        int[] array = new int[n];
+        int k = 0;
+        for (int[] ints : matrix) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                array[k] = ints[j];
+                k++;
+            }
+        }
+        return array;
+    }
+
+    public int[][] sortMatrixShell(int[][] matrix) {
+        int[] array = transMatrixToArray(matrix);
+        int n = array.length;
+        for (int gap = n / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < n; i++) {
+                int temp = array[i];
+                int j;
+                for (j = i; j >= gap && array[j - gap] > temp; j -= gap) {
+                    array[j] = array[j - gap];
+                }
+                array[j] = temp;
+            }
+        }
+        return transArrayToMatrix(matrix, array);
+    }
+
+    public int[][] sortMatrixBubble(int[][] matrix) {
+        int[] array = transMatrixToArray(matrix);
+        int n = array.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (array[j] > array[j + 1]) {
+                    int temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+            }
+        }
+        return transArrayToMatrix(matrix, array);
+    }
+
+    public int[][] sortMatrixInsertion(int[][] matrix) {
+        int[] array = transMatrixToArray(matrix);
+        int n = array.length;
+        for (int i = 1; i < n; ++i) {
+            int key = array[i];
+            int j = i - 1;
+            while (j >= 0 && array[j] > key) {
+                array[j + 1] = array[j];
+                j = j - 1;
+            }
+            array[j + 1] = key;
+        }
+        return transArrayToMatrix(matrix, array);
+    }
+
+    public int[][] sortMatrixSelection(int[][] matrix) {
+        int[] array = transMatrixToArray(matrix);
+        int n = array.length;
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < n; j++) {
+                if (array[j] < array[minIndex]) {
+                    minIndex = j;
+                }
+            }
+            int temp = array[minIndex];
+            array[minIndex] = array[i];
+            array[i] = temp;
+        }
+        return transArrayToMatrix(matrix, array);
+    }
+
+    public int[][] sortMatrixHeap(int[][] matrix) {
+        int[] array = transMatrixToArray(matrix);
+        int n = array.length;
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heap(array, n, i);
+        }
+        for (int i = n - 1; i >= 0; i--) {
+            int temp = array[0];
+            array[0] = array[i];
+            array[i] = temp;
+            heap(array, i, 0);
+        }
+        return transArrayToMatrix(matrix, array);
+    }
+
+    public static void heap(int arr[], int n, int index) {
+        int largest = index;
+        int leftChild = 2 * index + 1;
+        int rightChild = 2 * index + 2;
+        if (leftChild < n && arr[leftChild] > arr[largest]) {
+            largest = leftChild;
+        }
+        if (rightChild < n && arr[rightChild] > arr[largest]) {
+            largest = rightChild;
+        }
+        if (largest != index) {
+            int swap = arr[index];
+            arr[index] = arr[largest];
+            arr[largest] = swap;
+            heap(arr, n, largest);
+        }
+    }
+
     private void swapRows(int[][] matrix, int firstRow, int secondRow) {
         int[] temp = matrix[firstRow];
         matrix[firstRow] = matrix[secondRow];

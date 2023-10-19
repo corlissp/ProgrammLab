@@ -24,33 +24,31 @@ public class Service {
         this.scanner = new Scanner(System.in);
     }
 
-    public void readAndPrint() {
+    public String read() {
         System.out.print(Printer.GREEN + "Введите строку: ");
-        String input = scanner.next();
-        System.out.print(Printer.GREEN + "Результат: ");
-        printer.print(Printer.GREEN + input);
+        return scanner.next();
+    }
+
+    private String readNameFile() {
+        System.out.print(Printer.GREEN + "Название файла: ");
+        return scanner.next();
     }
 
     public void readAndLoadToFile() {
-        System.out.print(Printer.GREEN + "Название файла: ");
-        String fileName = scanner.next();
-        System.out.print(Printer.GREEN + "Введите строку: ");
-        String string = scanner.next();
+        String fileName = readNameFile();
+        String string = read();
         loadToFile(fileName, string);
     }
 
-    public void readFromFileToConsole() {
+    public List<String> readFromFile() {
         System.out.print(Printer.GREEN + "Название файла: ");
         String name = scanner.next();
-        List<String> file = readFromFile(name);
-        printer.printListString(file);
+        return readFromFile(name);
     }
 
     public void readAndWriteOnBegin() {
-        System.out.print(Printer.GREEN + "Название файла: ");
-        String fileName = scanner.next();
-        System.out.print(Printer.GREEN + "Введите строку: ");
-        String string = scanner.next();
+        String fileName = readNameFile();
+        String string = read();
         List<String> list = readFromFile(fileName);
         list.add(0, string);
         loadToFileList(fileName, list);
@@ -119,8 +117,7 @@ public class Service {
     }
 
     public void loadListToFile(List<Integer> list) {
-        System.out.print(Printer.GREEN + "Название файла: ");
-        String fileName = scanner.next();
+        String fileName = readNameFile();
         loadToFile(fileName, list.toString());
     }
 

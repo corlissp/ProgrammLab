@@ -2,7 +2,7 @@ package org.example.controller;
 
 import org.example.draw.DrawCircle;
 import org.example.printer.PrinterMenu;
-import org.example.service.MatrixService;
+import org.example.service.FormatService;
 
 import java.util.List;
 import java.util.Scanner;
@@ -13,12 +13,12 @@ import java.util.Scanner;
 public class Controller {
     private final PrinterMenu printer;
     private final Scanner scanner;
-    private final MatrixService service;
+    private final FormatService service;
 
     public Controller(PrinterMenu printer, Scanner scanner) {
         this.printer = printer;
         this.scanner = scanner;
-        this.service = new MatrixService(printer);
+        this.service = new FormatService(printer);
     }
 
     public void mainPage() {
@@ -75,16 +75,22 @@ public class Controller {
                         printer.printSortBlock();
                         secondFlag = scanner.nextInt();
                         while (secondFlag != 0) {
-                            matrixController(secondFlag);
+                            sortController(secondFlag);
                             printer.printSortBlock();
                             secondFlag = scanner.nextInt();
                         }
                         break;
                     case 6:
-                        new DrawCircle();
+                        printer.printFormat();
+                        secondFlag = scanner.nextInt();
+                        while (secondFlag != 0) {
+                            formatController(secondFlag);
+                            printer.printFormat();
+                            secondFlag = scanner.nextInt();
+                        }
                         break;
                     case 7:
-                        // Графика
+                        new DrawCircle();
                         break;
                 }
                 printer.printMain();
@@ -98,13 +104,14 @@ public class Controller {
     private void firstController(int flag) {
         switch (flag) {
             case 1:
-                service.readAndPrint();
+                printer.printResult();
+                printer.print(service.read());
                 break;
             case 2:
                 service.readAndLoadToFile();
                 break;
             case 3:
-                service.readFromFileToConsole();
+                printer.printListString(service.readFromFile());
                 break;
             case 4:
                 service.readAndWriteOnBegin();
@@ -267,12 +274,65 @@ public class Controller {
 
     private void sortController(int flag) {
         int [][] matrix = service.createMatrix();
+        printer.printEnter();
+        System.out.println();
+        printer.printMatrix(matrix);
         switch (flag) {
             case 1:
-
+                matrix = service.sortMatrixShell(matrix);
+                printer.printResult();
+                System.out.println();
+                printer.printMatrix(matrix);
                 break;
             case 2:
+                matrix = service.sortMatrixBubble(matrix);
+                printer.printResult();
+                System.out.println();
+                printer.printMatrix(matrix);
+                break;
+            case 3:
+                matrix = service.sortMatrixInsertion(matrix);
+                printer.printResult();
+                System.out.println();
+                printer.printMatrix(matrix);
+                break;
+            case 4:
+                matrix = service.sortMatrixSelection(matrix);
+                printer.printResult();
+                System.out.println();
+                printer.printMatrix(matrix);
+                break;
+            case 5:
+                matrix = service.sortMatrixHeap(matrix);
+                printer.printResult();
+                System.out.println();
+                printer.printMatrix(matrix);
+                break;
+        }
+    }
 
+    private void formatController(int flag) {
+        String string;
+        switch (flag) {
+            case 1:
+                printer.printQuestions(3);
+                int input = scanner.nextInt();
+                if (input == 1) {
+                    printer.print(service.read());
+                } else if (input == 2) {
+                    string = service.centeredText(service.read());
+                    printer.print(string);
+                } else if (input == 3) {
+                    string = service.rightText(service.read());
+                    printer.print(string);
+                }
+                break;
+            case 2:
+                System.out.print("Кол-во стобцов: ");
+                int cols = scanner.nextInt();
+                System.out.print("Кол-во строк: ");
+                int rows = scanner.nextInt();
+                service.drawTable(cols, rows);
                 break;
             case 3:
 
