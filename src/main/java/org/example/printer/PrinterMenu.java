@@ -98,4 +98,16 @@ public class PrinterMenu extends Printer {
         System.out.println(PURPLE + "5. Вывести строку в формате бегущей строки двигающейся в обратном направлении.");
         System.out.println(RED + "0. Выйти.");
     }
+
+    public void printDraw() {
+        System.out.println(GREEN + "\nВыберите задание:");
+        System.out.println(PURPLE + "1. Создать графический объект - квадрат.");
+        System.out.println(PURPLE + "2. Вписать треугольник в круг, с радиусом считанным с клавиатуры.");
+        System.out.println(PURPLE + "3. Построить гистограмму соответствующую вектору считанному с клавиатуры.");
+        System.out.println(PURPLE + "4. Вывести матрицу, пометив цветом только максимальное и минимальное значение.");
+        System.out.println(PURPLE + "5. Вывести матрицу считанную из файла, раскрасив строки.");
+        System.out.println(PURPLE + "6. Вывести матрицу считанную из файла, раскрасив столбцы.");
+        System.out.println(PURPLE + "7. Вывести отсортированную матрицу, раскрасив градиентом.");
+        System.out.println(RED + "0. Выйти.");
+    }
 }

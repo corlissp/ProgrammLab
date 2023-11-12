@@ -67,6 +67,19 @@ public class Service {
         return list;
     }
 
+    public List<Integer> inputArray() {
+        List<Integer> list = new ArrayList<>();
+        try {
+            System.out.print(Printer.GREEN + "Кол-во элементов в массиве: ");
+            int length = scanner.nextInt();
+            for (int i = 0; i < length; i++)
+                list.add(scanner.nextInt());
+        } catch (RuntimeException e) {
+            printer.printErrorInput();
+        }
+        return list;
+    }
+
     public List<Integer> readArray() {
         List<Integer> list = new ArrayList<>();
         try {

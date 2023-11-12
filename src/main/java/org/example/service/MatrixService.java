@@ -187,7 +187,7 @@ public class MatrixService extends Service {
         return result;
     }
 
-    private int[][] readMatrixFromFile(String filename) {
+    public int[][] readMatrixFromFile(String filename) {
         try {
             File file = new File(absPath + separator + filename);
             Scanner fileScanner = new Scanner(file);
@@ -332,7 +332,7 @@ public class MatrixService extends Service {
         return transArrayToMatrix(matrix, array);
     }
 
-    public static void heap(int arr[], int n, int index) {
+    public void heap(int arr[], int n, int index) {
         int largest = index;
         int leftChild = 2 * index + 1;
         int rightChild = 2 * index + 2;
@@ -348,6 +348,32 @@ public class MatrixService extends Service {
             arr[largest] = swap;
             heap(arr, n, largest);
         }
+    }
+
+    public int maxFromMatrix(int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        int max = matrix[0][0];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (max > matrix[i][j])
+                    max = matrix[i][j];
+            }
+        }
+        return max;
+    }
+
+    public int minFromMatrix(int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        int min = matrix[0][0];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (min < matrix[i][j])
+                    min = matrix[i][j];
+            }
+        }
+        return min;
     }
 
     private void swapRows(int[][] matrix, int firstRow, int secondRow) {

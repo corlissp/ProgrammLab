@@ -1,5 +1,6 @@
 package org.example.printer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,7 +48,7 @@ public abstract class Printer {
         System.out.print(GREEN + "Результат: ");
     }
 
-    public void printMatrix(int [][] matrix) {
+    public void printMatrix(int[][] matrix) {
         for (int[] ints : matrix) {
             for (int anInt : ints) {
                 System.out.print(anInt + " ");
@@ -56,4 +57,72 @@ public abstract class Printer {
         }
     }
 
+    public void printMaxMinColorMatrix(int[][] matrix, int max, int min) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (matrix[i][j] == max || matrix[i][j] == min) {
+                    System.out.print("\u001B[3" + (i + j) + "m" + matrix[i][j] + " ");
+                } else {
+                    System.out.print("\u001B[00m" + matrix[i][j] + " ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public void printRowsColor(int[][] matrix, int input) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                System.out.print("\u001B[3" + (i + input) + "m" + matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void printColsColor(int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                System.out.print("\u001B[3" + checkNegative(j, matrix[0][0]) + "m" + matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void printGradientMatrix(int[][] matrix) {
+        List<Integer> diagonal = checkDiagonal(matrix);
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                System.out.print("\u001B[3" + checkLastIndex(diagonal.get(i)) + "m" + matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    private List<Integer> checkDiagonal(int[][] matrix) {
+        List<Integer> arr = new ArrayList<>();
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (i == j)
+                    arr.add(matrix[i][j]);
+            }
+        }
+        return arr;
+    }
+
+    private int checkNegative(int a, int b) {
+        if (a - b > 0)
+            return a - b;
+        else
+            return (a - b) * -1;
+    }
+
+    private int checkLastIndex(int number) {
+        if (number < 10) {
+            return number;
+        } else if (number >= 10 && number < 100) {
+            return number % 10;
+        } else {
+            return number % 100;
+        }
+    }
 }

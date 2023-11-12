@@ -1,7 +1,9 @@
 package org.example.controller;
 
-import org.example.draw.DrawCircle;
+import org.example.draw.CircleWithInscribedTriangle;
 import org.example.draw.DrawSquare;
+import org.example.draw.Histogram;
+import org.example.printer.Printer;
 import org.example.printer.PrinterMenu;
 import org.example.service.FormatService;
 
@@ -92,10 +94,13 @@ public class Controller {
                         }
                         break;
                     case 7:
-                        SwingUtilities.invokeLater(() -> {
-                            DrawSquare squareDrawing = new DrawSquare();
-                            squareDrawing.setVisible(true);
-                        });
+                        printer.printDraw();
+                        secondFlag = scanner.nextInt();
+                        while (secondFlag != 0) {
+                            drawController(secondFlag);
+                            printer.printDraw();
+                            secondFlag = scanner.nextInt();
+                        }
                         break;
                 }
                 printer.printMain();
@@ -363,6 +368,55 @@ public class Controller {
                     service.runningString(string);
                 } catch (InterruptedException e) {
                 }
+                break;
+        }
+    }
+
+    private void drawController(int flag) {
+        switch (flag) {
+            case 1:
+                SwingUtilities.invokeLater(() -> {
+                    DrawSquare squareDrawing = new DrawSquare();
+                    squareDrawing.setVisible(true);
+                });
+                break;
+            case 2:
+                System.out.print(Printer.PURPLE + "Введите радиус круга: ");
+                int radius = scanner.nextInt();
+                SwingUtilities.invokeLater(() -> {
+                    CircleWithInscribedTriangle frame = new CircleWithInscribedTriangle(radius);
+                    frame.setVisible(true);
+                });
+                break;
+            case 3:
+                List<Integer> array = service.inputArray();
+                SwingUtilities.invokeLater(() -> {
+                    Histogram frame = new Histogram(array);
+                    frame.setVisible(true);
+                });
+                break;
+            case 4:
+                int[][] matrix = service.createMatrix();
+                int max = service.maxFromMatrix(matrix);
+                int min = service.minFromMatrix(matrix);
+                printer.printMaxMinColorMatrix(matrix, max, min);
+                break;
+            case 5:
+                System.out.print("Введите имя файла с матрицей: ");
+                matrix = service.readMatrixFromFile(scanner.next());
+                System.out.print("Введите число: ");
+                int input = scanner.nextInt();
+                printer.printRowsColor(matrix, input);
+                break;
+            case 6:
+                System.out.print("Введите имя файла с матрицей: ");
+                matrix = service.readMatrixFromFile(scanner.next());
+                printer.printColsColor(matrix);
+                break;
+            case 7:
+                matrix = service.createMatrix();
+                matrix = service.sortMatrixSelection(matrix);
+                printer.printGradientMatrix(matrix);
                 break;
         }
     }
