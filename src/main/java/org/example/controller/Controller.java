@@ -1,9 +1,11 @@
 package org.example.controller;
 
 import org.example.draw.DrawCircle;
+import org.example.draw.DrawSquare;
 import org.example.printer.PrinterMenu;
 import org.example.service.FormatService;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Scanner;
 
@@ -90,7 +92,10 @@ public class Controller {
                         }
                         break;
                     case 7:
-                        new DrawCircle();
+                        SwingUtilities.invokeLater(() -> {
+                            DrawSquare squareDrawing = new DrawSquare();
+                            squareDrawing.setVisible(true);
+                        });
                         break;
                 }
                 printer.printMain();
@@ -335,13 +340,29 @@ public class Controller {
                 service.drawTable(cols, rows);
                 break;
             case 3:
-
+                string = service.readFromFile().get(0);
+                String chars = service.read();
+                string = service.deleteChars(string, chars);
+                printer.printResult();
+                printer.print(string);
                 break;
             case 4:
-
+                List<String> list = service.readFromFile();
+                string = service.read();
+                int lastMatchingLine = service.searchString(list, string);
+                if (lastMatchingLine != -1) {
+                    printer.printResult();
+                    System.out.println("Последняя строка с подстрокой '" + string + "' найдена в строке номер " + lastMatchingLine);
+                } else {
+                    System.out.println("Подстрока '" + string + "' не найдена в файле.");
+                }
                 break;
             case 5:
-
+                string = service.read();
+                try {
+                    service.runningString(string);
+                } catch (InterruptedException e) {
+                }
                 break;
         }
     }
