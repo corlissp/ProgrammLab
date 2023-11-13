@@ -114,8 +114,9 @@ public class Controller {
     private void firstController(int flag) {
         switch (flag) {
             case 1:
+                String string = service.readLine();
                 printer.printResult();
-                printer.print(service.read());
+                printer.print(string);
                 break;
             case 2:
                 service.readAndLoadToFile();

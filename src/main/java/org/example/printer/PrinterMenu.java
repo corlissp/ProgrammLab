@@ -40,7 +40,7 @@ public class PrinterMenu extends Printer {
         System.out.println(PURPLE + "2. Отсортировать вектор.");
         System.out.println(PURPLE + "3. Найти минимальное\\максимальное значение.");
         System.out.println(PURPLE + "4. Найти НОД.");
-        System.out.println(PURPLE + "5. Сравнение сумм векторов. Вывод вектора с наименьшей суммой.");
+        System.out.println(PURPLE + "5. Сравнение сумм векторов. Вывод вектора с наибольшей суммой.");
         System.out.println(RED + "0. Выйти.");
     }
 

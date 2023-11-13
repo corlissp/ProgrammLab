@@ -29,14 +29,19 @@ public class Service {
         return scanner.next();
     }
 
+    public String readLine() {
+        System.out.print(Printer.GREEN + "Введите строку: ");
+        return scanner.nextLine();
+    }
+
     private String readNameFile() {
         System.out.print(Printer.GREEN + "Название файла: ");
         return scanner.next();
     }
 
     public void readAndLoadToFile() {
-        String fileName = readNameFile();
         String string = read();
+        String fileName = readNameFile();
         loadToFile(fileName, string);
     }
 

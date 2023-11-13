@@ -1,7 +1,6 @@
 package org.example.draw;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * @author Min Danil 12.11.2023
